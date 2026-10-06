@@ -28,8 +28,7 @@ and path. Use `Doctrine\ORM\Mapping` attributes, inject
 service-backed repositories. Existing Symfony Doctrine documentation applies.
 
 The complete [configuration example and usage](examples/README.md) are maintained in
-`examples/`. See [the architecture and acceptance contract](docs/integration-concept.md)
-and [feature coverage](docs/feature-matrix.md) before production adoption.
+`examples/`.
 
 Optional Symfony integrations require their own components: Form, Validator,
 SecurityBundle, MakerBundle or Doctrine Messenger. This package preserves the

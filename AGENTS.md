@@ -1,8 +1,8 @@
 # SymPress Doctrine Bundle
 
 This package adapts the original DoctrineBundle and DoctrineMigrationsBundle to
-the SymPress kernel. Read `docs/integration-concept.md` before changing its public
-contract. It has no dependency on the existing SymPress persistence packages.
+the SymPress kernel. It has no dependency on the existing SymPress persistence
+packages.
 
 ## Invariants
 
@@ -23,5 +23,5 @@ contract. It has no dependency on the existing SymPress persistence packages.
 - Before v1/release: run hosted QA, current-dependency canary, native kernel boot,
   compiled-container reload, migration round trip and fresh source archive install.
 
-Update the feature matrix and release evidence when behavior or scope changes.
+Keep the README and examples aligned with public behavior and configuration.
 Use signed release tags and pinned shared SymPress workflows.
