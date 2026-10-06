@@ -107,6 +107,9 @@ Anwendungsstrategie getrennt. Ein WordPress-Blogwechsel verändert keine bereits
 aufgebaute Doctrine-Verbindung und keine Tabellen-Metadaten. Lang laufende
 Prozesse setzen Dienste zwischen Arbeitseinheiten über den Kernel zurück;
 Fehler mit geschlossenem EntityManager erfordern `ManagerRegistry::resetManager()`.
+Der native Registry-Reset setzt eine initialisierte Registry voraus. Ein Worker,
+der nur direkt mit dem EntityManager arbeitet, beendet seine Arbeitseinheit
+explizit mit `clear()` beziehungsweise verwendet die Registry als Einstiegspunkt.
 
 ## Repository- und Release-Standard
 

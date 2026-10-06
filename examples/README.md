@@ -6,6 +6,11 @@ example uses `App\\ => app/`; adjust both the Composer autoload and mapping path
 for a different directory. Create the `migrations/` directory and set
 `DATABASE_URL` through the application's environment.
 
+For PostgreSQL, specify the platform version as part of the native DBAL
+configuration, for example
+`postgresql://user:password@host/database?serverVersion=17.0.0` for PostgreSQL 17.
+The accepted database suite uses explicit platform selection for PostgreSQL.
+
 Inject `EntityManagerInterface` and `RecordRepository` into an application
 service. Persist with `$manager->persist(new Record('ORDER-42'))`, then
 `$manager->flush()`. Query with `$repository->byReference('ORDER-42')`.

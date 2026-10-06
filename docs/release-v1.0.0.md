@@ -1,6 +1,16 @@
 # v1.0.0 acceptance record
 
-Release preparation: 2026-10-06. Hosted checks and archive acceptance are pending.
+Acceptance completed on 2026-10-06 for implementation commit
+`45bb35b960b89659bc44364d8243b03112c11938`. Release notes are added after these
+checks; the implementation and acceptance fixtures are unchanged.
+
+## Hosted evidence
+
+- [Strict shared QA and workflow lint](https://github.com/SymPress/doctrine-bundle/actions/runs/37502308441): passed.
+- [MariaDB and PostgreSQL](https://github.com/SymPress/doctrine-bundle/actions/runs/37502307420): passed.
+- [Fresh production archive and WordPress](https://github.com/SymPress/doctrine-bundle/actions/runs/37502307374): passed.
+- [Current-dependency compatibility](https://github.com/SymPress/doctrine-bundle/actions/runs/37502308474): passed.
+- [Kernel compatibility after its shared-toolchain pin correction](https://github.com/SymPress/kernel/actions/runs/37501796092): passed.
 
 ## Implemented and locally checked
 
@@ -37,6 +47,6 @@ check exercises SymPress's provided linter directly; Symfony Framework commands
 that rebuild their Symfony kernel require separate host acceptance. No parity
 claim is made for the entire Symfony HTTP kernel or its unrelated commands.
 
-The weekly dependency check is configured and will be exercised manually before
+The weekly dependency check is configured and its manual run passed before
 release. A manual pass does not prove a future scheduled run. Application-level
 deployments, backups and tenant isolation remain application acceptance work.
