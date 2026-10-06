@@ -1,0 +1,9 @@
+includes:
+    - vendor/sympress/qa/config/phpstan/library.neon
+
+parameters:
+    level: 8
+    paths:
+        - src
+        - tests
+        - examples

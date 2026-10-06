@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<ruleset name="SymPress Doctrine Bundle">
+    <description>Shared SymPress pure PHP standard for the Doctrine integration.</description>
+    <arg name="colors"/>
+    <arg value="sp"/>
+    <config name="testVersion" value="8.5-"/>
+    <file>src</file>
+    <file>tests</file>
+    <file>examples</file>
+    <exclude-pattern>vendor/*</exclude-pattern>
+    <exclude-pattern>tests/Fixtures/*</exclude-pattern>
+    <rule ref="SymPress-Pure"/>
+</ruleset>

@@ -1,0 +1,9 @@
+* text=auto eol=lf
+/.github export-ignore
+/tests export-ignore
+/AGENTS.md export-ignore
+/phpunit.xml.dist export-ignore
+/phpstan.neon.dist export-ignore
+/phpcs.xml.dist export-ignore
+/qa-adoption.json export-ignore
+/composer.lock export-ignore

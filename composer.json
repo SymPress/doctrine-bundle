@@ -1,0 +1,59 @@
+{
+    "name": "sympress/doctrine-bundle",
+    "description": "Native Doctrine ORM, DBAL and Symfony Doctrine bridge integration for SymPress.",
+    "type": "library",
+    "license": "GPL-2.0-or-later",
+    "authors": [{"name": "Brian Schäffner", "email": "brian.schaeffner@sympress.de", "role": "Developer"}],
+    "require": {
+        "php": "^8.5",
+        "doctrine/dbal": "^4.3",
+        "doctrine/doctrine-bundle": "^3.3",
+        "doctrine/doctrine-migrations-bundle": "^4.0",
+        "doctrine/orm": "^3.7",
+        "symfony/doctrine-bridge": "^8.1",
+        "sympress/framework-bundle": "^1.0.5",
+        "sympress/kernel": "^1.1.7"
+    },
+    "require-dev": {
+        "phpstan/phpstan-doctrine": "^2.0",
+        "symfony/doctrine-messenger": "^8.1",
+        "symfony/form": "^8.1",
+        "symfony/maker-bundle": "^1.0",
+        "symfony/property-info": "^8.1",
+        "symfony/security-bundle": "^8.1",
+        "symfony/serializer": "^8.1",
+        "symfony/uid": "^8.1",
+        "symfony/validator": "^8.1",
+        "sympress/qa": "^0.1.2"
+    },
+    "autoload": {"psr-4": {"SymPress\\DoctrineBundle\\": "src/"}},
+    "autoload-dev": {"psr-4": {"SymPress\\DoctrineBundle\\Tests\\": "tests/", "App\\": "examples/"}},
+    "extra": {"kernel": {"bundle": "SymPress\\DoctrineBundle\\DoctrineBundle", "entry": "doctrine-bundle"}},
+    "scripts": {
+        "lint:php": "qa lint:php",
+        "cs": ["Composer\\Config::disableProcessTimeout", "qa cs --strict"],
+        "cs:fix": ["Composer\\Config::disableProcessTimeout", "qa cs:fix"],
+        "static-analysis": ["Composer\\Config::disableProcessTimeout", "qa static-analysis --strict"],
+        "tests": ["Composer\\Config::disableProcessTimeout", "qa tests --strict"],
+        "tests:database": "@php vendor/bin/phpunit --testsuite Database",
+        "test": ["@tests"],
+        "qa": ["qa doctor --strict", "@lint:php", "@cs", "@static-analysis", "@tests"]
+    },
+    "config": {
+        "allow-plugins": {"dealerdirect/phpcodesniffer-composer-installer": true, "phpstan/extension-installer": true},
+        "sort-packages": true,
+        "optimize-autoloader": true
+    },
+    "suggest": {
+        "ext-pdo_mysql": "MySQL and MariaDB connections.",
+        "ext-pdo_pgsql": "PostgreSQL connections.",
+        "ext-pdo_sqlite": "SQLite connections.",
+        "symfony/doctrine-messenger": "Doctrine Messenger transports and transaction middleware.",
+        "symfony/form": "EntityType and Doctrine-backed form choices.",
+        "symfony/maker-bundle": "Development-time entity and migration generation.",
+        "symfony/security-bundle": "Doctrine entity user providers for separately configured security firewalls.",
+        "symfony/validator": "UniqueEntity and Doctrine-aware validation."
+    },
+    "minimum-stability": "stable",
+    "prefer-stable": true
+}
