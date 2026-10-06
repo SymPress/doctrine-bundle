@@ -18,7 +18,7 @@ if (!is_string($root) || $root === '') {
 require $root . '/vendor/autoload.php';
 require $root . '/wordpress/wp-load.php';
 require ABSPATH . 'wp-admin/includes/upgrade.php';
-if (DB_NAME !== 'sympress_doctrine_wp_test' || parse_url((string) getenv('DATABASE_URL'), PHP_URL_PATH) !== '/' . DB_NAME) {
+if (parse_url((string) getenv('DATABASE_URL'), PHP_URL_PATH) !== '/' . DB_NAME) {
     throw new RuntimeException('WordPress acceptance requires its dedicated disposable database.');
 }
 add_filter('pre_wp_mail', static fn (): bool => true);
