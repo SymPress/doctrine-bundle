@@ -8,8 +8,11 @@ Release preparation: 2026-10-06. Hosted checks and archive acceptance are pendin
   DBAL 4.5.0, Symfony Doctrine Bridge 8.1.8, SymPress Kernel 1.1.7,
   Framework Bundle 1.0.5 and shared QA 0.1.2.
 - Strict shared QA: syntax, PHPCS and PHPStan passed. PHPUnit: 15 successful
-  tests, 124 assertions and one separate database-suite skip without a DSN.
+  tests, 148 assertions and one separate database-suite skip without a DSN.
 - MariaDB 11.8 and PostgreSQL 17: one database test and 18 assertions each.
+- Fresh archive consumer with production dependencies only and real WordPress
+  7.1.3: native Composer discovery, entity/repository round trip, preserved
+  WordPress data and zero wpdb queries for Doctrine persistence passed locally.
 - Kernel's compiler-pass regression and full QA passed (78 tests, 372
   assertions). Existing environment skip and PHPUnit notices remain visible.
 - Kernel fix is signed v1.1.7 at `910e5bbb4b30684c0cd5a8512ae0f6c47f1282e6`;
@@ -28,6 +31,11 @@ SSH signatures are checked locally against the existing SymPress release public
 key (ED25519 fingerprint `SHA256:t63b+AEbAYq0XN04EJw/SAF3zsIdpzXoLyjlgsbD9ow`).
 GitHub currently reports `unknown_key` for this signing key, so a GitHub Verified
 badge is not claimed.
+
+The Doctrine commands use the native SymPress command loader. The container
+check exercises SymPress's provided linter directly; Symfony Framework commands
+that rebuild their Symfony kernel require separate host acceptance. No parity
+claim is made for the entire Symfony HTTP kernel or its unrelated commands.
 
 The weekly dependency check is configured and will be exercised manually before
 release. A manual pass does not prove a future scheduled run. Application-level

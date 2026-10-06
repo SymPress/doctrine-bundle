@@ -18,7 +18,7 @@ jobs:
         image: mariadb:11.8
         env:
           MARIADB_ALLOW_EMPTY_ROOT_PASSWORD: '1'
-          MARIADB_DATABASE: sympress_doctrine_test
+          MARIADB_DATABASE: sympress_doctrine_wp_test
         ports: ['3306:3306']
         options: --health-cmd="healthcheck.sh --connect --innodb_initialized" --health-interval=5s --health-timeout=5s --health-retries=12
     steps:

@@ -8,6 +8,7 @@ use Doctrine\ORM\Tools\SchemaTool;
 use SymPress\DoctrineBundle\Tests\Fixtures\Migrations\Version202610060001;
 use SymPress\DoctrineBundle\Tests\Support\KernelTestCase;
 use SymPress\Kernel\Console\ConsoleApplicationFactory;
+use SymPress\Kernel\Console\LintContainerCommand;
 use Symfony\Component\Console\Tester\CommandTester;
 
 final class MigrationsAndConsoleTest extends KernelTestCase
@@ -57,8 +58,12 @@ final class MigrationsAndConsoleTest extends KernelTestCase
         $tester = new CommandTester($console->find('doctrine:mapping:info'));
         self::assertSame(0, $tester->execute([]));
         self::assertStringContainsString('Invoice', $tester->getDisplay());
+        $tester = new CommandTester($console->find('doctrine:schema:validate'));
+        self::assertSame(0, $tester->execute(['--skip-sync' => true]), $tester->getDisplay());
         $tester = new CommandTester($console->find('doctrine:migrations:migrate'));
         self::assertSame(0, $tester->execute(['--no-interaction' => true]));
         self::assertSame(0, (int) $this->manager()->getConnection()->fetchOne('SELECT COUNT(*) FROM enterprise_audit'));
+        $tester = new CommandTester(new LintContainerCommand($this->kernel->getContainer()));
+        self::assertSame(0, $tester->execute([]), $tester->getDisplay());
     }
 }

@@ -6,6 +6,7 @@ use App\Entity\Record;
 use App\Repository\RecordRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Tools\SchemaTool;
+use Doctrine\Persistence\ManagerRegistry;
 use SymPress\Kernel\App;
 use SymPress\Kernel\Console\ConsoleApplicationFactory;
 use SymPress\Kernel\Kernel\SiteKernel;
@@ -17,6 +18,10 @@ if (!is_string($root) || $root === '') {
 require $root . '/vendor/autoload.php';
 require $root . '/wordpress/wp-load.php';
 require ABSPATH . 'wp-admin/includes/upgrade.php';
+if (DB_NAME !== 'sympress_doctrine_wp_test' || parse_url((string) getenv('DATABASE_URL'), PHP_URL_PATH) !== '/' . DB_NAME) {
+    throw new RuntimeException('WordPress acceptance requires its dedicated disposable database.');
+}
+add_filter('pre_wp_mail', static fn (): bool => true);
 if (!is_blog_installed()) {
     wp_install('Doctrine acceptance', 'doctrine-test', 'test@example.test', false, '', 'disposable-test-only');
 }
@@ -24,7 +29,11 @@ update_option('sympress_doctrine_probe', 'preserved');
 $kernel = new SiteKernel($root, 'prod', false);
 App::new($kernel)->boot();
 $container = $kernel->getContainer();
-$manager = $container->get(EntityManagerInterface::class);
+$registry = $container->get('doctrine');
+if (!$registry instanceof ManagerRegistry) {
+    throw new RuntimeException('Native public Doctrine registry is missing.');
+}
+$manager = $registry->getManager();
 if (!$manager instanceof EntityManagerInterface) {
     throw new RuntimeException('Native entity manager alias is missing.');
 }

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 // Disposable acceptance host only. No ports or credentials for production.
 define('WP_INSTALLING', true);
-define('DB_NAME', 'sympress_doctrine_test');
+define('DB_NAME', 'sympress_doctrine_wp_test');
 define('DB_USER', 'root');
 define('DB_PASSWORD', '');
 define('DB_HOST', getenv('DOCTRINE_WORDPRESS_DB_HOST') ?: '127.0.0.1');

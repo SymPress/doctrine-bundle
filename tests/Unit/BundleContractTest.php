@@ -9,6 +9,10 @@ use Doctrine\Bundle\MigrationsBundle\DoctrineMigrationsBundle as NativeMigration
 use PHPUnit\Framework\TestCase;
 use SymPress\DoctrineBundle\DoctrineBundle;
 use SymPress\DoctrineBundle\DoctrineMigrationsBundle;
+use SymPress\DoctrineBundle\Optional\MakerBundle;
+use SymPress\DoctrineBundle\Optional\SecurityBundle;
+use Symfony\Bundle\MakerBundle\MakerBundle as NativeMakerBundle;
+use Symfony\Bundle\SecurityBundle\SecurityBundle as NativeSecurityBundle;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 
 final class BundleContractTest extends TestCase
@@ -19,6 +23,8 @@ final class BundleContractTest extends TestCase
             [
             [new DoctrineBundle(), new NativeDoctrineBundle(), 'doctrine'],
             [new DoctrineMigrationsBundle(), new NativeMigrationsBundle(), 'doctrine_migrations'],
+            [new SecurityBundle(), new NativeSecurityBundle(), 'security'],
+            [new MakerBundle(), new NativeMakerBundle(), 'maker'],
             ] as [$adapter, $native, $alias]
         ) {
             $nativeExtension = $native->getContainerExtension();
@@ -30,6 +36,8 @@ final class BundleContractTest extends TestCase
             self::assertSame($adapter->getContainerExtension(), $adapter->getContainerExtension());
             $actual = new ContainerBuilder();
             $expected = new ContainerBuilder();
+            $actual->registerExtension(clone $extension);
+            $expected->registerExtension(clone $nativeExtension);
             $adapter->build($actual);
             $native->build($expected);
             self::assertSame(
@@ -38,6 +46,7 @@ final class BundleContractTest extends TestCase
             );
             self::assertSame($native->getPath(), $adapter->getPath());
             self::assertSame($native->getNamespace(), $adapter->getNamespace());
+            self::assertSame($native->getName(), $adapter->getName());
             self::assertSame(dirname(__DIR__, 2), $adapter->path());
         }
     }
