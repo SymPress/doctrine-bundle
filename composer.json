@@ -3,7 +3,13 @@
     "description": "Native Doctrine ORM, DBAL and Symfony Doctrine bridge integration for SymPress.",
     "type": "library",
     "license": "GPL-2.0-or-later",
-    "authors": [{"name": "Brian Schäffner", "email": "brian.schaeffner@sympress.de", "role": "Developer"}],
+    "authors": [
+        {
+            "name": "Brian Schäffner",
+            "email": "brian.schaeffner@sympress.io",
+            "role": "Developer"
+        }
+    ],
     "require": {
         "php": "^8.5",
         "doctrine/dbal": "^4.3",
@@ -26,21 +32,58 @@
         "symfony/validator": "^8.1",
         "sympress/qa": "^0.1.2"
     },
-    "autoload": {"psr-4": {"SymPress\\DoctrineBundle\\": "src/"}},
-    "autoload-dev": {"psr-4": {"SymPress\\DoctrineBundle\\Tests\\": "tests/", "App\\": "examples/"}},
-    "extra": {"kernel": {"bundle": "SymPress\\DoctrineBundle\\DoctrineBundle", "entry": "doctrine-bundle"}},
+    "autoload": {
+        "psr-4": {
+            "SymPress\\DoctrineBundle\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "SymPress\\DoctrineBundle\\Tests\\": "tests/",
+            "App\\": "examples/"
+        }
+    },
+    "extra": {
+        "kernel": {
+            "bundle": "SymPress\\DoctrineBundle\\DoctrineBundle",
+            "entry": "doctrine-bundle"
+        }
+    },
     "scripts": {
         "lint:php": "qa lint:php",
-        "cs": ["Composer\\Config::disableProcessTimeout", "qa cs --strict"],
-        "cs:fix": ["Composer\\Config::disableProcessTimeout", "qa cs:fix"],
-        "static-analysis": ["Composer\\Config::disableProcessTimeout", "qa static-analysis --strict"],
-        "tests": ["Composer\\Config::disableProcessTimeout", "qa tests --strict"],
+        "cs": [
+            "Composer\\Config::disableProcessTimeout",
+            "qa cs --strict"
+        ],
+        "cs:fix": [
+            "Composer\\Config::disableProcessTimeout",
+            "qa cs:fix"
+        ],
+        "static-analysis": [
+            "Composer\\Config::disableProcessTimeout",
+            "qa static-analysis --strict"
+        ],
+        "tests": [
+            "Composer\\Config::disableProcessTimeout",
+            "qa tests --strict"
+        ],
         "tests:database": "@php vendor/bin/phpunit --testsuite Database",
-        "test": ["@tests"],
-        "qa": ["qa doctor --strict", "@lint:php", "@cs", "@static-analysis", "@tests"]
+        "test": [
+            "@tests"
+        ],
+        "qa": [
+            "qa doctor --strict",
+            "@lint:php",
+            "@cs",
+            "@static-analysis",
+            "@tests"
+        ]
     },
     "config": {
-        "allow-plugins": {"dealerdirect/phpcodesniffer-composer-installer": true, "phpstan/extension-installer": true},
+        "allow-plugins": {
+            "dealerdirect/phpcodesniffer-composer-installer": true,
+            "phpstan/extension-installer": true
+        },
         "sort-packages": true,
         "optimize-autoloader": true
     },
