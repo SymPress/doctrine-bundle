@@ -7,6 +7,8 @@
   YAML and HttpFoundation releases.
 - Update the development lock to Symfony 8.1.9 for ExpressionLanguage, YAML and
   HttpFoundation, including CVE-2026-109449 and the request-parser regression fix.
+- Keep the security user fixture compatible with the declared lowest development
+  dependencies when exercising the patched parser floors.
 
 ## 1.0.0 — 2026-10-06
 

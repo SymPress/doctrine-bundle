@@ -39,6 +39,11 @@ class StaffMember implements UserInterface
         return ['ROLE_ENTERPRISE'];
     }
 
+    public function eraseCredentials(): void
+    {
+        // Symfony 8.1.0 still requires this method; this fixture stores no credentials.
+    }
+
     /** @return non-empty-string */
     public function getUserIdentifier(): string
     {
