@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.0.1 — 2026-10-16
+
+- Require the security-patched SymPress Kernel and Framework Bundle so fresh and
+  lowest-version installations exclude vulnerable Symfony ExpressionLanguage,
+  YAML and HttpFoundation releases.
+- Update the development lock to Symfony 8.1.9 for ExpressionLanguage, YAML and
+  HttpFoundation, including CVE-2026-109449 and the request-parser regression fix.
+
 ## 1.0.0 — 2026-10-06
 
 - Native Doctrine ORM, DBAL, DoctrineBundle and DoctrineMigrationsBundle integration.

@@ -2,19 +2,18 @@
 
 Native Doctrine ORM and DBAL integration for the SymPress ecosystem. Uses the
 original DoctrineBundle, DoctrineMigrationsBundle and Symfony Doctrine Bridge.
-Requires PHP 8.5 and SymPress Kernel >= 1.1.7. Entities and persistence do not depend on `wpdb` or WordPress
-hooks. The package has no dependency on another SymPress persistence package.
+Requires PHP 8.5, SymPress Kernel >= 1.1.10 and Framework Bundle >= 1.0.7.
+Entities and persistence do not depend on `wpdb` or WordPress hooks. The package
+has no dependency on another SymPress persistence package.
 
 ## Installation
 
-This is a private Composer library. Configure a read-only authenticated VCS
-repository in the consuming application's root `composer.json`:
+Install the public package from Packagist in the consuming application's root:
 
-```json
-{"repositories": [{"type": "vcs", "url": "git@github.com:SymPress/doctrine-bundle.git"}]}
+```sh
+composer require sympress/doctrine-bundle:^1.0.1
 ```
 
-Then install the stable release with `composer require sympress/doctrine-bundle:^1.0`.
 The SymPress kernel discovers the bundle through `extra.kernel` and registers its
 Framework and Migrations requirements. Symfony Flex is not required.
 
