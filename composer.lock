@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "30225b155957ad97da4d611509f52c20",
+    "content-hash": "9b8ba04b774f8b1ef0f4d2dd216b86ac",
     "packages": [
         {
             "name": "doctrine/collections",
@@ -1219,7 +1219,8 @@
                 "issues": "https://github.com/php-fig/clock/issues",
                 "source": "https://github.com/php-fig/clock/tree/1.0.0"
             },
-            "time": "2022-11-25T14:36:26+00:00"
+            "time": "2022-11-25T14:36:26+00:00",
+            "published-time": "2022-11-25T14:59:22+00:00"
         },
         {
             "name": "psr/container",
@@ -1426,7 +1427,8 @@
             "support": {
                 "source": "https://github.com/php-fig/simple-cache/tree/3.0.0"
             },
-            "time": "2021-10-29T13:26:27+00:00"
+            "time": "2021-10-29T13:26:27+00:00",
+            "published-time": "2021-10-29T13:27:19+00:00"
         },
         {
             "name": "symfony/cache",
@@ -1684,7 +1686,8 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2026-05-29T05:06:50+00:00"
+            "time": "2026-05-29T05:06:50+00:00",
+            "published-time": "2026-05-29T08:53:14+00:00"
         },
         {
             "name": "symfony/config",
@@ -1863,7 +1866,8 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2026-09-18T16:00:27+00:00"
+            "time": "2026-09-18T16:00:27+00:00",
+            "published-time": "2026-09-29T14:09:30+00:00"
         },
         {
             "name": "symfony/dependency-injection",
@@ -2439,7 +2443,8 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2026-10-09T13:58:01+00:00"
+            "time": "2026-10-09T13:58:01+00:00",
+            "published-time": "2026-10-14T06:48:30+00:00"
         },
         {
             "name": "symfony/filesystem",
@@ -4084,16 +4089,16 @@
         },
         {
             "name": "sympress/framework-bundle",
-            "version": "v1.0.7",
+            "version": "v1.0.9",
             "source": {
                 "type": "git",
                 "url": "https://github.com/SymPress/framework-bundle.git",
-                "reference": "863e750bbb5913175c4c3220b88234ffb537301d"
+                "reference": "e1ed6cbe3b370d0a6c8820555dc3fd6052388bc3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/SymPress/framework-bundle/zipball/863e750bbb5913175c4c3220b88234ffb537301d",
-                "reference": "863e750bbb5913175c4c3220b88234ffb537301d",
+                "url": "https://api.github.com/repos/SymPress/framework-bundle/zipball/e1ed6cbe3b370d0a6c8820555dc3fd6052388bc3",
+                "reference": "e1ed6cbe3b370d0a6c8820555dc3fd6052388bc3",
                 "shasum": ""
             },
             "require": {
@@ -4102,18 +4107,18 @@
                 "psr/simple-cache": "^3.0",
                 "symfony/cache": "^8.1",
                 "symfony/cache-contracts": "^3.6",
-                "symfony/config": "^8.1",
+                "symfony/config": "^8.1.11",
                 "symfony/console": "^8.1",
                 "symfony/dependency-injection": "^8.1.8",
                 "symfony/error-handler": "^8.1",
                 "symfony/expression-language": "^8.1.9",
-                "symfony/filesystem": "^8.0",
-                "symfony/framework-bundle": "^8.1.8",
-                "symfony/http-kernel": "^8.1",
-                "symfony/routing": "^8.1",
+                "symfony/filesystem": "^8.1.11",
+                "symfony/framework-bundle": "^8.1.11",
+                "symfony/http-kernel": "^8.1.11",
+                "symfony/routing": "^8.1.11",
                 "symfony/service-contracts": "^3.6",
-                "symfony/yaml": "^8.1.6",
-                "sympress/kernel": "^1.1.10"
+                "symfony/yaml": "^8.1.11",
+                "sympress/kernel": "^1.1.14"
             },
             "require-dev": {
                 "brain/monkey": "^2.6",
@@ -4171,22 +4176,23 @@
             "description": "SymPress FrameworkBundle bridge with Symfony Cache integration and WordPress object-cache support.",
             "support": {
                 "issues": "https://github.com/SymPress/framework-bundle/issues",
-                "source": "https://github.com/SymPress/framework-bundle/tree/v1.0.7"
+                "source": "https://github.com/SymPress/framework-bundle/tree/v1.0.9"
             },
-            "time": "2026-10-16T12:40:01+00:00"
+            "time": "2026-11-06T08:33:05+00:00",
+            "published-time": "2026-11-06T08:33:18+00:00"
         },
         {
             "name": "sympress/kernel",
-            "version": "v1.1.10",
+            "version": "v1.1.14",
             "source": {
                 "type": "git",
                 "url": "https://github.com/SymPress/kernel.git",
-                "reference": "1e6d052e7d18f1dd96efa06712f81ae50a1972e5"
+                "reference": "624319ca58894747e6b8c066db6a93201aa5c41c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/SymPress/kernel/zipball/1e6d052e7d18f1dd96efa06712f81ae50a1972e5",
-                "reference": "1e6d052e7d18f1dd96efa06712f81ae50a1972e5",
+                "url": "https://api.github.com/repos/SymPress/kernel/zipball/624319ca58894747e6b8c066db6a93201aa5c41c",
+                "reference": "624319ca58894747e6b8c066db6a93201aa5c41c",
                 "shasum": ""
             },
             "require": {
@@ -4197,17 +4203,17 @@
                 "psr/event-dispatcher": "^1.0",
                 "psr/log": "^3.0",
                 "symfony/clock": "^8.0",
-                "symfony/config": "^8.0",
+                "symfony/config": "^8.1.11",
                 "symfony/console": "^8.0",
                 "symfony/dependency-injection": "^8.1.8",
                 "symfony/event-dispatcher": "^8.0",
                 "symfony/expression-language": "^8.1.9",
-                "symfony/filesystem": "^8.0",
-                "symfony/http-foundation": "^8.1.9",
-                "symfony/http-kernel": "^8.1",
-                "symfony/routing": "^8.1",
+                "symfony/filesystem": "^8.1.11",
+                "symfony/http-foundation": "^8.1.11",
+                "symfony/http-kernel": "^8.1.11",
+                "symfony/routing": "^8.1.11",
                 "symfony/service-contracts": "^3.6",
-                "symfony/yaml": "^8.1.6"
+                "symfony/yaml": "^8.1.11"
             },
             "require-dev": {
                 "composer/semver": "^3.4",
@@ -4238,9 +4244,10 @@
             "description": "WordPress kernel and shared service container built on Symfony DependencyInjection.",
             "support": {
                 "issues": "https://github.com/SymPress/kernel/issues",
-                "source": "https://github.com/SymPress/kernel/tree/v1.1.10"
+                "source": "https://github.com/SymPress/kernel/tree/v1.1.14"
             },
-            "time": "2026-10-16T12:33:55+00:00"
+            "time": "2026-11-06T08:26:29+00:00",
+            "published-time": "2026-11-06T08:26:41+00:00"
         }
     ],
     "packages-dev": [

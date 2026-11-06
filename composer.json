@@ -17,8 +17,8 @@
         "doctrine/doctrine-migrations-bundle": "^4.0",
         "doctrine/orm": "^3.7",
         "symfony/doctrine-bridge": "^8.1",
-        "sympress/framework-bundle": "^1.0.7",
-        "sympress/kernel": "^1.1.10"
+        "sympress/framework-bundle": "^1.0.9",
+        "sympress/kernel": "^1.1.14"
     },
     "require-dev": {
         "phpstan/phpstan-doctrine": "^2.0",
