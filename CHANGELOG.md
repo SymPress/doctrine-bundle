@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.0.3 — 2026-11-06
+
+- Require the patched Framework Bundle and Kernel in downstream Composer installations.
+
 ## 1.0.2 — 2026-11-06
 
 - Use the Symfony 8.1.11 security patches released on November 4.
