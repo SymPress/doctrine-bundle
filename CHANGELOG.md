@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.0.2 — 2026-11-06
+
+- Use the Symfony 8.1.11 security patches released on November 4.
+
 ## 1.0.1 — 2026-10-16
 
 - Require the security-patched SymPress Kernel and Framework Bundle so fresh and
