@@ -33,6 +33,15 @@ Optional Symfony integrations require their own components: Form, Validator,
 SecurityBundle, MakerBundle or Doctrine Messenger. This package preserves the
 upstream integration; it does not install a WordPress authentication layer.
 
+## mysqli inside WordPress
+
+WordPress' `wpdb` sets `mysqli_report(MYSQLI_REPORT_OFF)` for the whole PHP
+process, while DBAL's `mysqli` driver relies on mysqli exceptions. The bundle
+registers a DBAL middleware that runs each Doctrine call on a `mysqli`
+connection in strict reporting mode and restores the previous mode afterwards,
+so DBAL raises its usual exceptions and `wpdb` keeps its behavior. `pdo_mysql`
+connections are not affected.
+
 ## Database ownership
 
 Use Doctrine for application-owned entities and tables. When sharing a database
