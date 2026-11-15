@@ -9,5 +9,9 @@
         <testsuite name="Database"><directory>tests/Database</directory></testsuite>
     </testsuites>
     <source><include><directory suffix=".php">src</directory></include></source>
-    <php><ini name="display_errors" value="1"/><ini name="error_reporting" value="-1"/></php>
+    <php>
+        <ini name="display_errors" value="1"/><ini name="error_reporting" value="-1"/>
+        <!-- Outside WordPress the schema filter needs the prefix; schema tools refuse to run without it. -->
+        <env name="DB_TABLE_PREFIX" value="wp_"/>
+    </php>
 </phpunit>
