@@ -1,5 +1,17 @@
 # Changelog
 
+## 1.0.5 — 2026-11-15
+
+- Never drop WordPress tables from Doctrine schema tools. Without a configured
+  `schema_filter`, `doctrine:schema:update --force` and `doctrine:migrations:diff`
+  followed by `migrate` dropped every WordPress table in a shared database. Every
+  connection now hides tables that start with the WordPress table prefix
+  (`$wpdb->base_prefix`, then `$table_prefix`, then `DB_TABLE_PREFIX`), on top of
+  any configured `schema_filter`. Fixture purges skip them as well.
+- Outside WordPress, set `DB_TABLE_PREFIX` before running schema tools, migrations
+  or fixture purges: without a known prefix they now stop with an exception instead
+  of guessing.
+
 ## 1.0.4 — 2026-11-15
 
 - Make SQL errors on `mysqli` connections reliable inside WordPress. `wpdb` turns
