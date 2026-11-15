@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace SymPress\DoctrineBundle\Tests\Integration;
 
+use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Tools\SchemaTool;
+use Doctrine\Persistence\ManagerRegistry;
 use SymPress\DoctrineBundle\Tests\Fixtures\Migrations\Version202610060001;
 use SymPress\DoctrineBundle\Tests\Support\KernelTestCase;
 use SymPress\Kernel\Console\ConsoleApplicationFactory;
@@ -41,6 +43,36 @@ final class MigrationsAndConsoleTest extends KernelTestCase
         self::assertStringNotContainsString('wp_posts', implode("\n", $sql));
         $connection->executeStatement("INSERT INTO wp_posts VALUES (1, 'Preserve this content')");
         self::assertSame('Preserve this content', $connection->fetchOne('SELECT title FROM wp_posts WHERE id = 1'));
+    }
+
+    public function testSchemaDiffKeepsWordPressTablesWithoutAConfiguredFilter(): void
+    {
+        // The reporting connection configures no schema_filter, as a default installation would.
+        $registry = $this->kernel->getContainer()->get(ManagerRegistry::class);
+        self::assertInstanceOf(ManagerRegistry::class, $registry);
+        $manager = $registry->getManager('reporting');
+        self::assertInstanceOf(EntityManagerInterface::class, $manager);
+        $connection = $manager->getConnection();
+        foreach (['wp_posts', 'wp_2_posts', 'unrelated_table'] as $table) {
+            $connection->executeStatement(sprintf('CREATE TABLE %s (id INT NOT NULL PRIMARY KEY)', $table));
+        }
+
+        $metadata = $manager->getMetadataFactory()->getAllMetadata();
+        $sql = implode("\n", (new SchemaTool($manager))->getUpdateSchemaSql($metadata));
+
+        self::assertStringContainsString('CREATE TABLE enterprise_invoice', $sql);
+        self::assertStringNotContainsString('wp_', $sql);
+        self::assertStringContainsString('DROP TABLE unrelated_table', $sql);
+    }
+
+    public function testWordPressFilterComposesWithTheConfiguredFilterForMigrations(): void
+    {
+        // Migrations' diff reads the same connection-level filter as the ORM schema tool.
+        $filter = $this->manager()->getConnection()->getConfiguration()->getSchemaAssetsFilter();
+        self::assertTrue($filter('enterprise_invoice'));
+        self::assertTrue($filter('doctrine_migration_versions'));
+        self::assertFalse($filter('wp_posts'));
+        self::assertFalse($filter('unrelated_table'));
     }
 
     public function testNativeConsoleCommandsAreLoadedAndExecute(): void

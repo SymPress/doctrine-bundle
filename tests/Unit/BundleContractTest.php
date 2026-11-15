@@ -7,6 +7,7 @@ namespace SymPress\DoctrineBundle\Tests\Unit;
 use Doctrine\Bundle\DoctrineBundle\DoctrineBundle as NativeDoctrineBundle;
 use Doctrine\Bundle\MigrationsBundle\DoctrineMigrationsBundle as NativeMigrationsBundle;
 use PHPUnit\Framework\TestCase;
+use SymPress\DoctrineBundle\DependencyInjection\WordPressSchemaFilterPass;
 use SymPress\DoctrineBundle\DoctrineBundle;
 use SymPress\DoctrineBundle\DoctrineMigrationsBundle;
 use SymPress\DoctrineBundle\Optional\MakerBundle;
@@ -42,7 +43,11 @@ final class BundleContractTest extends TestCase
             $native->build($expected);
             self::assertSame(
                 array_map(static fn (object $pass): string => $pass::class, $expected->getCompilerPassConfig()->getPasses()),
-                array_map(static fn (object $pass): string => $pass::class, $actual->getCompilerPassConfig()->getPasses()),
+                // The only pass the adapters add keeps WordPress tables out of Doctrine schema tools.
+                array_values(array_diff(
+                    array_map(static fn (object $pass): string => $pass::class, $actual->getCompilerPassConfig()->getPasses()),
+                    [WordPressSchemaFilterPass::class],
+                )),
             );
             self::assertSame($native->getPath(), $adapter->getPath());
             self::assertSame($native->getNamespace(), $adapter->getNamespace());
