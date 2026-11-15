@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.0.4 — 2026-11-15
+
+- Make SQL errors on `mysqli` connections reliable inside WordPress. `wpdb` turns
+  mysqli error reporting off for the whole process, so DBAL raised `TypeError`s
+  instead of its exceptions and could ignore failed statements. A DBAL middleware
+  now runs every mysqli driver call in strict reporting mode and restores the
+  previous mode afterwards; other drivers are untouched.
+
 ## 1.0.3 — 2026-11-06
 
 - Require the patched Framework Bundle and Kernel in downstream Composer installations.
