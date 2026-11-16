@@ -1,5 +1,12 @@
 # Changelog
 
+## 1.0.6 — 2026-11-16
+
+- Keep the database password out of connect-failure stack traces. The mysqli
+  driver middleware captured the `#[\SensitiveParameter]` connection parameters in
+  a closure, where trace arguments still exposed them.
+- Pin the shared `sympress/workflows` CI workflows to v1.3.2.
+
 ## 1.0.5 — 2026-11-15
 
 - Never drop WordPress tables from Doctrine schema tools. Without a configured
