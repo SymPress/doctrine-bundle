@@ -28,6 +28,15 @@ final class StrictMysqliReportingDriver extends AbstractDriverMiddleware
             return $this->driver->connect($params);
         }
 
-        return new StrictMysqliReportingConnection(StrictMysqliReporting::call(fn () => $this->driver->connect($params)));
+        // Inlined instead of StrictMysqliReporting::call(): a closure would capture the password in its scope,
+        // where stack traces show it despite #[\SensitiveParameter].
+        $previous = (new \mysqli_driver())->report_mode;
+        mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
+
+        try {
+            return new StrictMysqliReportingConnection($this->driver->connect($params));
+        } finally {
+            mysqli_report($previous);
+        }
     }
 }
