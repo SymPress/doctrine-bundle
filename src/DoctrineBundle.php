@@ -5,9 +5,11 @@ declare(strict_types=1);
 namespace SymPress\DoctrineBundle;
 
 use Doctrine\Bundle\DoctrineBundle\DoctrineBundle as UpstreamDoctrineBundle;
+use Doctrine\ORM\Tools\ToolEvents;
 use SymPress\DoctrineBundle\Dbal\StrictMysqliReportingMiddleware;
 use SymPress\DoctrineBundle\Dbal\WordPressTablesSchemaFilter;
 use SymPress\DoctrineBundle\DependencyInjection\WordPressSchemaFilterPass;
+use SymPress\DoctrineBundle\Orm\WordPressTablesSchemaListener;
 use SymPress\Framework\SymPressFrameworkBundle;
 use SymPress\Kernel\SiteConfig;
 use Symfony\Component\DependencyInjection\Compiler\PassConfig;
@@ -34,5 +36,9 @@ final class DoctrineBundle extends NativeBundleAdapter
         $container->register(WordPressSchemaFilterPass::FILTER_ID, WordPressTablesSchemaFilter::class)
             ->setArguments([new Reference(SiteConfig::class)]);
         $container->addCompilerPass(new WordPressSchemaFilterPass(), PassConfig::TYPE_BEFORE_OPTIMIZATION, 1024);
+        // Without a connection attribute, Doctrine attaches the listener to every connection.
+        $container->register('sympress.doctrine.orm.wordpress_schema_listener', WordPressTablesSchemaListener::class)
+            ->setArguments([new Reference(WordPressSchemaFilterPass::FILTER_ID)])
+            ->addTag('doctrine.event_listener', ['event' => ToolEvents::postGenerateSchema]);
     }
 }
