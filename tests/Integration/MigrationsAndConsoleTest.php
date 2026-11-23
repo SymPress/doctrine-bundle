@@ -45,6 +45,26 @@ final class MigrationsAndConsoleTest extends KernelTestCase
         self::assertSame('Preserve this content', $connection->fetchOne('SELECT title FROM wp_posts WHERE id = 1'));
     }
 
+    public function testSchemaToolsLeaveMappedWordPressTablesAlone(): void
+    {
+        $manager = $this->manager();
+        $connection = $manager->getConnection();
+        $connection->executeStatement(
+            'CREATE TABLE wp_users (ID INTEGER NOT NULL PRIMARY KEY, user_login VARCHAR(60) NOT NULL, '
+            . 'user_pass VARCHAR(255) NOT NULL)',
+        );
+        $connection->executeStatement("INSERT INTO wp_users VALUES (1, 'admin', 'password-hash')");
+        $metadata = $manager->getMetadataFactory()->getAllMetadata();
+        $createSql = (new SchemaTool($manager))->getCreateSchemaSql($metadata);
+        self::assertStringNotContainsString('wp_users', implode("\n", $createSql));
+
+        $tester = new CommandTester($this->console()->find('doctrine:schema:update'));
+        self::assertSame(0, $tester->execute(['--force' => true]), $tester->getDisplay());
+
+        self::assertSame('password-hash', $connection->fetchOne('SELECT user_pass FROM wp_users WHERE ID = 1'));
+        self::assertSame([], (new SchemaTool($manager))->getUpdateSchemaSql($metadata));
+    }
+
     public function testSchemaDiffKeepsWordPressTablesWithoutAConfiguredFilter(): void
     {
         // The reporting connection configures no schema_filter, as a default installation would.
