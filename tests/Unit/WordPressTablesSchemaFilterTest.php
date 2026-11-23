@@ -48,6 +48,18 @@ final class WordPressTablesSchemaFilterTest extends TestCase
         self::assertTrue($filter('doctrine_migration_versions'));
     }
 
+    public function testHidesQuotedTableNames(): void
+    {
+        // ORMPurger passes platform-quoted names for entities mapped with quoted table names.
+        $GLOBALS['table_prefix'] = 'wp_';
+        $filter = new WordPressTablesSchemaFilter(new EnvConfig());
+
+        foreach (['`wp_users`', '"wp_users"', '[wp_users]', '"public"."wp_users"', '`db`.`wp_users`'] as $name) {
+            self::assertFalse($filter($name), $name);
+        }
+        self::assertTrue($filter('`enterprise_invoice`'));
+    }
+
     public function testFallsBackToTheTablePrefixGlobalThenTheEnvironment(): void
     {
         $_ENV['DB_TABLE_PREFIX'] = 'env_';

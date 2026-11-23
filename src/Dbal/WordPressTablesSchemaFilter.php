@@ -16,10 +16,10 @@ final class WordPressTablesSchemaFilter
     {
     }
 
-    // DBAL 4 passes asset names as strings, optionally qualified as "schema.table".
+    // Names arrive optionally qualified ("schema.table") and quoted (`t`, "t", [t]), e.g. from ORMPurger.
     public function __invoke(string $assetName): bool
     {
-        return stripos((string) preg_replace('~^.*\.~', '', $assetName), $this->prefix()) !== 0;
+        return stripos(trim((string) preg_replace('~^.*\.~', '', $assetName), '`"[]'), $this->prefix()) !== 0;
     }
 
     private function prefix(): string
