@@ -2,7 +2,7 @@
 
 Native Doctrine ORM and DBAL integration for the SymPress ecosystem. Uses the
 original DoctrineBundle, DoctrineMigrationsBundle and Symfony Doctrine Bridge.
-Requires PHP 8.5, SymPress Kernel >= 1.1.10 and Framework Bundle >= 1.0.7.
+Requires PHP 8.5, SymPress Kernel >= 1.1.14 and Framework Bundle >= 1.0.9.
 Entities and persistence do not depend on `wpdb` or WordPress hooks. The package
 has no dependency on another SymPress persistence package.
 
@@ -11,7 +11,7 @@ has no dependency on another SymPress persistence package.
 Install the public package from Packagist in the consuming application's root:
 
 ```sh
-composer require sympress/doctrine-bundle:^1.0.1
+composer require sympress/doctrine-bundle:^1.0.7
 ```
 
 The SymPress kernel discovers the bundle through `extra.kernel` and registers its
@@ -48,15 +48,19 @@ Use Doctrine for application-owned entities and tables. On every connection the
 bundle hides all tables that start with the WordPress table prefix from Doctrine's
 schema tools, so `doctrine:schema:update`, `doctrine:migrations:diff` and the
 fixtures purger never touch `wp_posts`, `wp_users` or multisite tables such as
-`wp_2_posts`. The prefix comes from `$wpdb->base_prefix`, then the `$table_prefix`
-global, then `DB_TABLE_PREFIX` (environment variable or constant). Without any of
-them, schema tools refuse to run instead of guessing. This cannot be turned off.
+`wp_2_posts`, even when an entity maps such a table or quotes its name. The
+prefix comes from `$wpdb->base_prefix`, then the `$table_prefix` global, then
+`DB_TABLE_PREFIX` (environment variable or constant). Without any of them, schema
+tools refuse to run instead of guessing. This cannot be turned off.
 
-Do not start application table names with the WordPress prefix: migration diffs
-and fixture purges skip them. A configured `schema_filter` still applies on top;
-keep one that admits only your own tables and the migrations metadata table.
+Do not start application table names with the WordPress prefix: schema tools,
+migration diffs and fixture purges skip them. A configured `schema_filter` still
+applies on top; keep one that admits only your own tables and the migrations
+metadata table.
 `doctrine:migrations:diff --filter-expression` replaces all connection filters for
-that run, including this one. Review generated migrations and execute them during
+that run, including this one. `doctrine:database:drop --force` drops the whole
+database, which WordPress shares; no schema filter applies to it, so do not run it
+against a WordPress database. Review generated migrations and execute them during
 deployment. Bundle boot never applies schema changes.
 
 Separate `wpdb` and DBAL connections do not share a transaction. Modify WordPress
