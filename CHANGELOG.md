@@ -1,5 +1,19 @@
 # Changelog
 
+## 1.0.7 — 2026-11-23
+
+- Keep mapped WordPress tables out of `doctrine:schema:update`,
+  `doctrine:schema:create` and `doctrine:schema:drop`. An entity mapped to
+  `wp_users` made `schema:update --force` rebuild the table and drop its unmapped
+  columns, including password hashes, because the ORM admits every mapped table to
+  its comparison regardless of the schema filter.
+- Match quoted table names such as `` `wp_users` ``, `"wp_users"` or `[wp_users]`
+  against the WordPress prefix. Fixture purges emptied WordPress tables mapped with
+  a quoted name.
+- Document that `doctrine:database:drop` drops the shared WordPress database and
+  update the documented minimum versions.
+- Let Dependabot update GitHub Actions pins.
+
 ## 1.0.6 — 2026-11-16
 
 - Keep the database password out of connect-failure stack traces. The mysqli
